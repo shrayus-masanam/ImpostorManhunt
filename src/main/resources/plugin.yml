@@ -1,0 +1,5 @@
+name: ImpostorManhunt
+version: '1.0'
+main: shray.us.impostormanhunt.Main
+api-version: '1.21'
+description: Impostor Manhunt
