@@ -3,3 +3,13 @@ version: '1.0'
 main: shray.us.impostormanhunt.Main
 api-version: '1.21'
 description: Impostor Manhunt
+commands:
+  announce:
+    description: "Announces your location"
+    usage: /announce
+  lost:
+    description: "Asks for help"
+    usage: /lost
+  ImpostorManhunt:
+    description: "ImpostorManhunt commands"
+    usage: /ImpostorManhunt <args>
