@@ -6,6 +6,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
+import shray.us.impostormanhunt.utils.WorldName;
 
 public class Announce implements CommandExecutor {
     @Override
@@ -20,24 +21,7 @@ public class Announce implements CommandExecutor {
             return true;
         }
         Location loc = player.getLocation();
-
-        World.Environment env = loc.getWorld().getEnvironment();
-        String world_name;
-        switch (env) {
-            case NORMAL:
-                world_name = "Overworld";
-                break;
-            case NETHER:
-                world_name = "Nether";
-                break;
-            case THE_END:
-                world_name = "End";
-                break;
-            default:
-                // custom datapack envs
-                world_name = loc.getWorld().getName();
-        }
-
+        String world_name = WorldName.toPretty(loc.getWorld());
         for (Player p : Bukkit.getOnlinePlayers()) {
             p.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.RESET + " is announcing their location in the " + world_name
                     + " at XYZ: " + loc.getBlockX() + " / " + loc.getBlockY() + " / " + loc.getBlockZ());
