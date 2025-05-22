@@ -27,7 +27,7 @@ public class PlayerRespawn implements Listener {
                     public void run() {
                         player.setGameMode(GameMode.SURVIVAL);
                     }
-                }, 20L * 2);
+                }, 20L * 30);
             } else {
                 player.sendMessage(Main.prefix + "You have been eliminated. You can now speak with other spectators "
                         + "in text or voice chat.");
