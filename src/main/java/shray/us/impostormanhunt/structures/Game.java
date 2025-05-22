@@ -31,7 +31,7 @@ public class Game {
         Game.ongoing = true;
     }
     public static void stop(boolean runnersWon) {
-        String title = "";
+        String title;
         if (runnersWon) {
             title = ChatColor.GREEN + "Runners Win!";
         } else {
@@ -42,6 +42,12 @@ public class Game {
             if (!runnersWon)
                 competitor.getPlayer().playSound(competitor.getPlayer(), Sound.ENTITY_WITHER_SPAWN, 1.0F, 1.0F);
         }
+        Game.ongoing = false;
+        competitors = null;
+    }
+
+    public static void stop() {
+        // forceful stop
         Game.ongoing = false;
         competitors = null;
     }
