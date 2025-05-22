@@ -32,6 +32,9 @@ public class ImpostorManhunt implements CommandExecutor {
                         + WorldName.toDimension(w) + " run gamerule showDeathMessages false");
             }
             commandSender.sendMessage(ChatColor.GREEN + "Game started.");
+        } else if (args[0].equalsIgnoreCase("stop")) {
+            Game.stop();
+            commandSender.sendMessage(ChatColor.GREEN + "Game stopped.");
         }
 
         return true;
