@@ -3,6 +3,7 @@ package shray.us.impostormanhunt.structures;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import shray.us.impostormanhunt.Main;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -22,7 +23,7 @@ public class Game {
         for (int i = 0; i < players.length; i++) {
             Player p = (Player)players[i];
             competitors.add(new Competitor(p, i == impostor_idx));
-            p.sendMessage("You are " + (i == impostor_idx ? "the "
+            p.sendMessage(Main.prefix + "You are " + (i == impostor_idx ? "the "
                     + ChatColor.RED + "impostor" : "a " + ChatColor.GREEN + "runner") + ChatColor.RESET + "!");
         }
         Game.ongoing = true;
@@ -30,5 +31,14 @@ public class Game {
     public static void stop() {
         Game.ongoing = false;
         competitors = null;
+    }
+
+    public static Competitor getCompetitor(Player p) {
+        for (Competitor c : competitors) {
+            if (c.getPlayer().equals(p)) {
+                return c;
+            }
+        }
+        return null;
     }
 }

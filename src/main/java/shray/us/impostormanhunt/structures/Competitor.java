@@ -12,4 +12,11 @@ public class Competitor {
         this.impostor = impostor;
     }
 
+    public Player getPlayer() {
+        return player;
+    }
+
+    public boolean isImpostor() {
+        return impostor;
+    }
 }
