@@ -23,7 +23,7 @@ public class EntityDeath implements Listener {
                 competitor.eliminate();
             boolean allEliminated = true;
             for (Player player : Bukkit.getOnlinePlayers()) {
-                competitor = Game.getCompetitor((Player) event.getEntity());
+                competitor = Game.getCompetitor(player);
                 if (competitor == null || competitor.isImpostor()) continue;
                 if (!competitor.isEliminated()) {
                     allEliminated = false;
