@@ -1,6 +1,7 @@
 package shray.us.impostormanhunt.structures;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -15,6 +16,14 @@ public class Competitor {
         this.playerUUID = player.getUniqueId();
         this.impostor = impostor;
         this.eliminated = false;
+
+        player.setHealth(player.getMaxHealth());
+        player.setFoodLevel(20);
+        player.setSaturation(20);
+        player.setExp(0);
+        player.setLevel(0);
+        player.clearActivePotionEffects();
+        player.setGameMode(GameMode.SURVIVAL);
     }
 
     public Player getPlayer() {
