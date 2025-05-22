@@ -39,7 +39,7 @@ public class Announce implements CommandExecutor {
         }
 
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(p.getName() + " is announcing their location in the " + world_name
+            p.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.RESET + " is announcing their location in the " + world_name
                     + " at XYZ: " + loc.getBlockX() + " / " + loc.getBlockY() + " / " + loc.getBlockZ());
         }
 

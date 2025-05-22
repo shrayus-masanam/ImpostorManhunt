@@ -1,6 +1,7 @@
 package shray.us.impostormanhunt;
 
 import io.papermc.paper.command.brigadier.BasicCommand;
+import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -22,6 +23,7 @@ public final class Main extends JavaPlugin implements CommandExecutor {
     }
     private Logger logger;
     private CommandExecutor[] commands;
+    public static final String prefix = "[" + ChatColor.YELLOW + "ImpostorManHunt" + ChatColor.RESET + "] ";
 
     public void registerEvents(org.bukkit.plugin.Plugin plugin, Listener... listeners) {
         PluginManager manager = getServer().getPluginManager();

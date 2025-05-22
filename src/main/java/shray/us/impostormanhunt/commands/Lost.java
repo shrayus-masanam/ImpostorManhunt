@@ -22,7 +22,7 @@ public class Lost implements CommandExecutor {
         }
 
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(p.getName() + " is lost and needs help!");
+            p.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.RESET + " is lost and needs help!");
         }
 
         return true;
