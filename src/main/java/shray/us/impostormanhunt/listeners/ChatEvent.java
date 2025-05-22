@@ -6,6 +6,8 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 import shray.us.impostormanhunt.structures.Competitor;
 import shray.us.impostormanhunt.structures.Game;
 
+import java.util.Iterator;
+
 public class ChatEvent {
 
     @EventHandler
@@ -16,11 +18,13 @@ public class ChatEvent {
             event.getRecipients().clear();
             event.setCancelled(true);
         } else {
-            for (Player p : event.getRecipients()) {
+            Iterator<Player> it = event.getRecipients().iterator();
+            while (it.hasNext()) {
+                Player p = it.next();
                 Competitor c2 = Game.getCompetitor(p);
-                if (c2 == null) continue;
-                if (!c2.isEliminated())
-                    event.getRecipients().remove(p);
+                if (c2 != null && !c2.isEliminated()) {
+                    it.remove();
+                }
             }
         }
     }
