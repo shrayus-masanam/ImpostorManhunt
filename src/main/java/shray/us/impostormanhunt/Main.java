@@ -13,6 +13,7 @@ import shray.us.impostormanhunt.commands.ImpostorManhunt;
 import shray.us.impostormanhunt.commands.Lost;
 import shray.us.impostormanhunt.listeners.ChatEvent;
 import shray.us.impostormanhunt.listeners.EntityDeath;
+import shray.us.impostormanhunt.listeners.PlayerMove;
 import shray.us.impostormanhunt.listeners.PlayerRespawn;
 import shray.us.impostormanhunt.utils.HideSpectators;
 
@@ -41,7 +42,7 @@ public final class Main extends JavaPlugin implements CommandExecutor {
         instance = this;
         logger = getLogger();
         commands = new CommandExecutor[]{new Announce(), new ImpostorManhunt(), new Lost()};
-        registerEvents(this, new ChatEvent(), new EntityDeath(), new PlayerRespawn());
+        registerEvents(this, new ChatEvent(), new EntityDeath(), new PlayerRespawn(), new PlayerMove());
         new HideSpectators(this);
     }
 
