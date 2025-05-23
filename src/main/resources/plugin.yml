@@ -13,3 +13,4 @@ commands:
   ImpostorManhunt:
     description: "ImpostorManhunt commands"
     usage: /ImpostorManhunt <args>
+depend: [ProtocolLib]

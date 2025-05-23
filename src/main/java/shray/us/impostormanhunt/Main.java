@@ -1,6 +1,5 @@
 package shray.us.impostormanhunt;
 
-import io.papermc.paper.command.brigadier.BasicCommand;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -12,6 +11,10 @@ import org.jetbrains.annotations.NotNull;
 import shray.us.impostormanhunt.commands.Announce;
 import shray.us.impostormanhunt.commands.ImpostorManhunt;
 import shray.us.impostormanhunt.commands.Lost;
+import shray.us.impostormanhunt.listeners.ChatEvent;
+import shray.us.impostormanhunt.listeners.EntityDeath;
+import shray.us.impostormanhunt.listeners.PlayerRespawn;
+import shray.us.impostormanhunt.utils.HideSpectators;
 
 import java.util.logging.Logger;
 
@@ -38,6 +41,8 @@ public final class Main extends JavaPlugin implements CommandExecutor {
         instance = this;
         logger = getLogger();
         commands = new CommandExecutor[]{new Announce(), new ImpostorManhunt(), new Lost()};
+        registerEvents(this, new ChatEvent(), new EntityDeath(), new PlayerRespawn());
+        new HideSpectators(this);
     }
 
     @Override
@@ -51,7 +56,7 @@ public final class Main extends JavaPlugin implements CommandExecutor {
     public boolean onCommand(@NotNull CommandSender commandSender,
                              @NotNull Command command, @NotNull String label, @NotNull String @NotNull [] args) {
         for (CommandExecutor commandExecutor : commands) {
-            if (commandExecutor.getClass().getSimpleName().equals(label)) {
+            if (commandExecutor.getClass().getSimpleName().equalsIgnoreCase(label)) {
                 return commandExecutor.onCommand(commandSender, command, label, args);
             }
         }
