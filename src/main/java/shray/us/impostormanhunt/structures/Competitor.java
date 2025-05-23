@@ -24,6 +24,8 @@ public class Competitor {
         player.setLevel(0);
         player.clearActivePotionEffects();
         player.setGameMode(GameMode.SURVIVAL);
+        player.setInvulnerable(false);
+        player.setAllowFlight(false);
     }
 
     public Player getPlayer() {

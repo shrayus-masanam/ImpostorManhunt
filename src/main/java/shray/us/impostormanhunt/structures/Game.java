@@ -1,9 +1,6 @@
 package shray.us.impostormanhunt.structures;
 
-import org.bukkit.Bukkit;
-import org.bukkit.ChatColor;
-import org.bukkit.Sound;
-import org.bukkit.SoundCategory;
+import org.bukkit.*;
 import org.bukkit.entity.Player;
 import shray.us.impostormanhunt.Main;
 
@@ -38,9 +35,14 @@ public class Game {
             title = ChatColor.RED + "Impostors Win!";
         }
         for (Competitor competitor : competitors) {
-            competitor.getPlayer().sendMessage(title);
-            if (!runnersWon)
-                competitor.getPlayer().playSound(competitor.getPlayer(), Sound.ENTITY_WITHER_SPAWN, 1.0F, 1.0F);
+            Player p = competitor.getPlayer();
+            if (p == null) continue;
+            p.sendTitle(title, "");
+            p.setGameMode(GameMode.SURVIVAL);
+            p.setInvulnerable(true);
+            if (!runnersWon) {
+                p.playSound(p, Sound.ENTITY_WITHER_SPAWN, 1.0F, 1.0F);
+            }
         }
         Game.ongoing = false;
         competitors = null;
@@ -53,6 +55,7 @@ public class Game {
     }
 
     public static Competitor getCompetitor(Player p) {
+        if (competitors == null) return null;
         for (Competitor c : competitors) {
             if (c.getPlayer().equals(p)) {
                 return c;
