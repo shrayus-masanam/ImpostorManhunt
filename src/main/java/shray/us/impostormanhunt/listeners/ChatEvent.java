@@ -2,13 +2,14 @@ package shray.us.impostormanhunt.listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import shray.us.impostormanhunt.structures.Competitor;
 import shray.us.impostormanhunt.structures.Game;
 
 import java.util.Iterator;
 
-public class ChatEvent {
+public class ChatEvent implements Listener {
 
     @EventHandler
     public void onMessage(AsyncPlayerChatEvent event) {

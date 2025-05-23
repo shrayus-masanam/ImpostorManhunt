@@ -16,14 +16,14 @@ public class EntityDeath implements Listener {
     public void onEntityDeath(EntityDeathEvent event) {
         if (event.getEntity() instanceof EnderDragon) {
             Game.stop(true);
-        } else if (event.getEntity() instanceof Player) {
-            Competitor competitor = Game.getCompetitor((Player) event.getEntity());
+        } else if (event.getEntity() instanceof Player player) {
+            Competitor competitor = Game.getCompetitor(player);
             if (competitor == null) return;
             if (!competitor.isImpostor())
                 competitor.eliminate();
             boolean allEliminated = true;
-            for (Player player : Bukkit.getOnlinePlayers()) {
-                competitor = Game.getCompetitor(player);
+            for (Player player2 : Bukkit.getOnlinePlayers()) {
+                competitor = Game.getCompetitor(player2);
                 if (competitor == null || competitor.isImpostor()) continue;
                 if (!competitor.isEliminated()) {
                     allEliminated = false;
