@@ -23,8 +23,8 @@ public class Announce implements CommandExecutor {
         Location loc = player.getLocation();
         String world_name = WorldName.toPretty(loc.getWorld());
         for (Player p : Bukkit.getOnlinePlayers()) {
-            p.sendMessage(ChatColor.YELLOW + p.getName() + ChatColor.RESET + " is announcing their location in the " + world_name
-                    + " at XYZ: " + loc.getBlockX() + " / " + loc.getBlockY() + " / " + loc.getBlockZ());
+            p.sendMessage(ChatColor.YELLOW + player.getName() + ChatColor.RESET + " is in the "
+                    + world_name + " at XYZ: " + loc.getBlockX() + " / " + loc.getBlockY() + " / " + loc.getBlockZ());
         }
 
         return true;
