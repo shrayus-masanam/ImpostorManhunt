@@ -35,11 +35,14 @@ public class HideSpectators {
                         PlayerInfoData data = original.get(i);
                         Player p = Bukkit.getPlayer(data.getProfileId());
                         if (p == null) continue;
+                        if (p.getUniqueId().equals(event.getPlayer().getUniqueId()))
+                            continue; // dont manipulate a packet about ourself
                         Competitor c = Game.getCompetitor(p);
                         if (c == null) continue;
                         if (data.getGameMode() != EnumWrappers.NativeGameMode.SPECTATOR) continue;
                         PlayerInfoData disguised = new PlayerInfoData(
-                            data.getProfileId(), data.getLatency(),
+                            data.getProfileId(),
+                            data.getLatency(),
                             data.isListed(),
                             EnumWrappers.NativeGameMode.SURVIVAL, // spoof to survival
                             data.getProfile(),

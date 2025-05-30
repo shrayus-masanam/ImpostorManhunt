@@ -13,6 +13,9 @@ commands:
   track:
     description: "Chooses what to track with the compass"
     usage: /track (closest|<username>|portal)
+  goto:
+    description: "Makes you go to a player"
+    usage: /goto <username>
   ImpostorManhunt:
     description: "ImpostorManhunt commands"
     usage: /ImpostorManhunt <args>
