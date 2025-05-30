@@ -8,9 +8,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
-import shray.us.impostormanhunt.commands.Announce;
-import shray.us.impostormanhunt.commands.ImpostorManhunt;
-import shray.us.impostormanhunt.commands.Lost;
+import shray.us.impostormanhunt.commands.*;
 import shray.us.impostormanhunt.listeners.*;
 import shray.us.impostormanhunt.utils.HideSpectators;
 
@@ -38,9 +36,9 @@ public final class Main extends JavaPlugin implements CommandExecutor {
         // Plugin startup logic
         instance = this;
         logger = getLogger();
-        commands = new CommandExecutor[]{new Announce(), new ImpostorManhunt(), new Lost()};
+        commands = new CommandExecutor[]{new Announce(), new ImpostorManhunt(), new Lost(), new Track(), new Goto()};
         registerEvents(this, new ChatEvent(), new EntityDeath(), new PlayerRespawn(), new PlayerMove(),
-                new EndPortalOpen());
+                new EndPortalOpen(), new PlayerJoinLeave());
         new HideSpectators(this); // hides spectators from tab player list
     }
 
