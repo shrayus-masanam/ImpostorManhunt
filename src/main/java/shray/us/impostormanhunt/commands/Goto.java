@@ -28,7 +28,7 @@ public class Goto implements CommandExecutor {
             return false;
         for (Player p : Bukkit.getOnlinePlayers()) {
             if (args[0].equalsIgnoreCase(p.getName())) {
-                player.teleport(p);
+                player.teleport(p.getLocation());
                 player.sendMessage(ChatColor.GREEN + "Teleported to " + p.getName() + ".");
                 return true;
             }
