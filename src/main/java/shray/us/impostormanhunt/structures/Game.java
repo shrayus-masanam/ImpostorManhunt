@@ -10,6 +10,7 @@ import shray.us.impostormanhunt.utils.WorldName;
 
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.Random;
 
 public class Game {
     private static HashSet<Competitor> competitors;
@@ -17,6 +18,20 @@ public class Game {
     private static BukkitTask impostor_compass;
     private static Location last_end_portal;
     private static final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
+
+    // Fisher–Yates shuffle https://stackoverflow.com/a/1520212
+    private static void shuffle(Object[] ar)
+    {
+        Random rnd = new Random();
+        for (int i = ar.length - 1; i > 0; i--)
+        {
+            int index = rnd.nextInt(i + 1);
+            // Simple swap
+            Object a = ar[index];
+            ar[index] = ar[i];
+            ar[i] = a;
+        }
+    }
 
     public static boolean isOngoing() {
         return ongoing;
@@ -35,12 +50,16 @@ public class Game {
         }
         competitors = new HashSet<>();
         Object[] players = Bukkit.getOnlinePlayers().toArray();
-
+        shuffle(players);
         int impostor_idx = (int)(Math.random() * players.length);
 
         for (int i = 0; i < players.length; i++) {
             Player p = (Player)players[i];
             competitors.add(new Competitor(p, i == impostor_idx));
+            p.getInventory().clear();
+            p.setGameMode(GameMode.SURVIVAL);
+            p.setInvulnerable(false);
+            p.teleport(p.getWorld().getSpawnLocation());
             p.sendMessage(Main.prefix + "You are " + (i == impostor_idx ? "the "
                     + ChatColor.RED + "impostor" : "a " + ChatColor.GREEN + "runner") + ChatColor.RESET + "!");
         }
