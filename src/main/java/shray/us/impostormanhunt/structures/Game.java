@@ -2,6 +2,8 @@ package shray.us.impostormanhunt.structures;
 
 import org.bukkit.*;
 import org.bukkit.entity.Player;
+import org.bukkit.scheduler.BukkitRunnable;
+import org.bukkit.scheduler.BukkitTask;
 import shray.us.impostormanhunt.Main;
 
 import java.util.Collection;
@@ -10,6 +12,8 @@ import java.util.HashSet;
 public class Game {
     private static HashSet<Competitor> competitors;
     private static boolean ongoing = false;
+    private static BukkitTask impostor_compass;
+    private static Location last_end_portal;
 
     public static boolean isOngoing() {
         return ongoing;
@@ -18,13 +22,25 @@ public class Game {
     public static void start() {
         competitors = new HashSet<>();
         Object[] players = Bukkit.getOnlinePlayers().toArray();
+
         int impostor_idx = (int)(Math.random() * players.length);
+
         for (int i = 0; i < players.length; i++) {
             Player p = (Player)players[i];
             competitors.add(new Competitor(p, i == impostor_idx));
             p.sendMessage(Main.prefix + "You are " + (i == impostor_idx ? "the "
                     + ChatColor.RED + "impostor" : "a " + ChatColor.GREEN + "runner") + ChatColor.RESET + "!");
         }
+
+        impostor_compass = new BukkitRunnable() {
+            @Override public void run() {
+                for (Competitor competitor : competitors) {
+                    if (competitor.isImpostor())
+                        competitor.trackTarget();
+                }
+            }
+        }.runTaskTimer(Main.getInstance(), 0L, 5L);
+
         Game.ongoing = true;
     }
     public static void stop(boolean runnersWon) {
@@ -44,6 +60,9 @@ public class Game {
                 p.playSound(p, Sound.ENTITY_WITHER_SPAWN, 1.0F, 1.0F);
             }
         }
+        impostor_compass.cancel();
+        impostor_compass = null;
+        last_end_portal = null;
         Game.ongoing = false;
         competitors = null;
     }
@@ -62,5 +81,13 @@ public class Game {
             }
         }
         return null;
+    }
+
+    public static void setLastEndPortal(Location at) {
+        last_end_portal = at;
+    }
+
+    public static Location getEndPortal() {
+        return last_end_portal;
     }
 }
