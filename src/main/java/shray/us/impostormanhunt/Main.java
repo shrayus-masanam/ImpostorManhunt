@@ -11,10 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import shray.us.impostormanhunt.commands.Announce;
 import shray.us.impostormanhunt.commands.ImpostorManhunt;
 import shray.us.impostormanhunt.commands.Lost;
-import shray.us.impostormanhunt.listeners.ChatEvent;
-import shray.us.impostormanhunt.listeners.EntityDeath;
-import shray.us.impostormanhunt.listeners.PlayerMove;
-import shray.us.impostormanhunt.listeners.PlayerRespawn;
+import shray.us.impostormanhunt.listeners.*;
 import shray.us.impostormanhunt.utils.HideSpectators;
 
 import java.util.logging.Logger;
@@ -42,8 +39,9 @@ public final class Main extends JavaPlugin implements CommandExecutor {
         instance = this;
         logger = getLogger();
         commands = new CommandExecutor[]{new Announce(), new ImpostorManhunt(), new Lost()};
-        registerEvents(this, new ChatEvent(), new EntityDeath(), new PlayerRespawn(), new PlayerMove());
-        new HideSpectators(this);
+        registerEvents(this, new ChatEvent(), new EntityDeath(), new PlayerRespawn(), new PlayerMove(),
+                new EndPortalOpen());
+        new HideSpectators(this); // hides spectators from tab player list
     }
 
     @Override
