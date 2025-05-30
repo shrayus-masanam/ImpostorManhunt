@@ -1,10 +1,12 @@
 package shray.us.impostormanhunt.structures;
 
 import org.bukkit.*;
+import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.scheduler.BukkitRunnable;
 import org.bukkit.scheduler.BukkitTask;
 import shray.us.impostormanhunt.Main;
+import shray.us.impostormanhunt.utils.WorldName;
 
 import java.util.Collection;
 import java.util.HashSet;
@@ -14,12 +16,23 @@ public class Game {
     private static boolean ongoing = false;
     private static BukkitTask impostor_compass;
     private static Location last_end_portal;
+    private static final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
     public static boolean isOngoing() {
         return ongoing;
     }
 
     public static void start() {
+        if (ongoing)
+            stop();
+        for (World w : Bukkit.getWorlds()) {
+            Bukkit.dispatchCommand(console, "execute in "
+                    + WorldName.toDimension(w) + " run gamerule announceAdvancements false");
+            Bukkit.dispatchCommand(console, "execute in "
+                    + WorldName.toDimension(w) + " run gamerule showDeathMessages false");
+            Bukkit.dispatchCommand(console, "execute in "
+                    + WorldName.toDimension(w) + " run difficulty hard");
+        }
         competitors = new HashSet<>();
         Object[] players = Bukkit.getOnlinePlayers().toArray();
 

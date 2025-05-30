@@ -13,9 +13,6 @@ import shray.us.impostormanhunt.utils.WorldName;
 
 public class ImpostorManhunt implements CommandExecutor {
 
-    private final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
-
-
     public boolean onCommand(@NotNull CommandSender commandSender,
                              @NotNull Command command, @NotNull String s, @NotNull String @NotNull [] args) {
         if (!commandSender.isOp()) {
@@ -25,12 +22,6 @@ public class ImpostorManhunt implements CommandExecutor {
 
         if (args[0].equalsIgnoreCase("start")) {
             Game.start();
-            for (World w : Bukkit.getWorlds()) {
-                Bukkit.dispatchCommand(console, "execute in "
-                        + WorldName.toDimension(w) + " run gamerule announceAdvancements false");
-                Bukkit.dispatchCommand(console, "execute in "
-                        + WorldName.toDimension(w) + " run gamerule showDeathMessages false");
-            }
             commandSender.sendMessage(ChatColor.GREEN + "Game started.");
         } else if (args[0].equalsIgnoreCase("stop")) {
             Game.stop();
