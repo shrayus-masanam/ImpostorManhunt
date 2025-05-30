@@ -58,6 +58,9 @@ public class Competitor {
         player.spigot().sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(text));
     }
 
+    public void setTracking(String tracking) {
+        this.tracking = tracking;
+    }
 
     // from nms
     private static float wrapDegrees(float value) {

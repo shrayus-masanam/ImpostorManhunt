@@ -10,6 +10,9 @@ commands:
   lost:
     description: "Asks for help"
     usage: /lost
+  track:
+    description: "Chooses what to track with the compass"
+    usage: /track (closest|<username>|portal)
   ImpostorManhunt:
     description: "ImpostorManhunt commands"
     usage: /ImpostorManhunt <args>
