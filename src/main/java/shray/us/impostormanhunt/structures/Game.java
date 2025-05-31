@@ -47,6 +47,8 @@ public class Game {
                     + WorldName.toDimension(w) + " run gamerule showDeathMessages false");
             Bukkit.dispatchCommand(console, "execute in "
                     + WorldName.toDimension(w) + " run difficulty hard");
+            Bukkit.dispatchCommand(console, "execute in "
+                    + WorldName.toDimension(w) + " time set day");
         }
         competitors = new HashSet<>();
         Object[] players = Bukkit.getOnlinePlayers().toArray();
@@ -58,8 +60,18 @@ public class Game {
             competitors.add(new Competitor(p, i == impostor_idx));
             p.getInventory().clear();
             p.setGameMode(GameMode.SURVIVAL);
-            p.setInvulnerable(false);
-            p.teleport(p.getWorld().getSpawnLocation());
+            p.setInvulnerable(true);
+            Bukkit.getScheduler().runTaskLater(Main.getInstance(), new Runnable() {
+                @Override
+                public void run() {
+                    p.setInvulnerable(false);
+                }
+            }, 20L * 5);
+            p.teleport(p.getWorld().getSpawnLocation()
+                    .add(Math.random() * 10, 0, Math.random() * 10)
+                    .toHighestLocation().add(0, 3, 0));
+            p.sendTitle(ChatColor.GREEN + "Impostor Manhunt", "", 10, 10, 10);
+            p.playSound(p, "entity.ender_dragon.growl", 1.0F, 1.0F);
             p.sendMessage(Main.prefix + "You are " + (i == impostor_idx ? "the "
                     + ChatColor.RED + "impostor" : "a " + ChatColor.GREEN + "runner") + ChatColor.RESET + "!");
         }
