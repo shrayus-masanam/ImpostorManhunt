@@ -8,7 +8,6 @@ import org.bukkit.scheduler.BukkitTask;
 import shray.us.impostormanhunt.Main;
 import shray.us.impostormanhunt.utils.WorldName;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.Random;
 
@@ -20,8 +19,7 @@ public class Game {
     private static final ConsoleCommandSender console = Bukkit.getServer().getConsoleSender();
 
     // Fisher–Yates shuffle https://stackoverflow.com/a/1520212
-    private static void shuffle(Object[] ar)
-    {
+    private static void shuffle(Object[] ar) {
         Random rnd = new Random();
         for (int i = ar.length - 1; i > 0; i--)
         {
@@ -70,9 +68,9 @@ public class Game {
             p.teleport(p.getWorld().getSpawnLocation()
                     .add(Math.random() * 10, 0, Math.random() * 10)
                     .toHighestLocation().add(0, 3, 0));
-            p.sendTitle(ChatColor.GREEN + "Impostor Manhunt", "", 10, 10, 10);
+            p.sendTitle(ChatColor.GREEN + "Impostor Manhunt", "", 10, 20 * 5, 10);
             p.playSound(p, "entity.ender_dragon.growl", 1.0F, 1.0F);
-            p.sendMessage(Main.prefix + "You are " + (i == impostor_idx ? "the "
+            p.sendMessage(Main.prefix + "You are " + (i == impostor_idx ? "an "
                     + ChatColor.RED + "impostor" : "a " + ChatColor.GREEN + "runner") + ChatColor.RESET + "!");
         }
 
@@ -97,12 +95,12 @@ public class Game {
         for (Competitor competitor : competitors) {
             Player p = competitor.getPlayer();
             if (p == null) continue;
-            p.sendTitle(title, "");
+            //p.sendTitle(title, "");
+            p.sendTitle(title, "", 10, 20 * 5, 10);
             p.setGameMode(GameMode.SURVIVAL);
             p.setInvulnerable(true);
-            if (!runnersWon) {
+            if (!runnersWon)
                 p.playSound(p, Sound.ENTITY_WITHER_SPAWN, 1.0F, 1.0F);
-            }
         }
         impostor_compass.cancel();
         impostor_compass = null;
@@ -112,7 +110,6 @@ public class Game {
     }
 
     public static void stop() {
-        // forceful stop
         Game.ongoing = false;
         competitors = null;
     }
